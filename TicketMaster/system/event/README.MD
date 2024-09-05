@@ -1,0 +1,1 @@
+This system will operate under the assumption that each venue only has 1 seat configuration.
