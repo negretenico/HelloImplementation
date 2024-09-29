@@ -1,10 +1,10 @@
-package com.hello.implementation.ticketmaster.ticketmaster;
+package com.hello.implementation.ticketmaster.search;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class TicketmasterApplicationTests {
+class SearchApplicationTests {
 
 	@Test
 	void contextLoads() {

@@ -36,14 +36,3 @@ CREATE TABLE Events (
     FOREIGN KEY (venue_id) REFERENCES Venues(venue_id),
     FOREIGN KEY (performer_id) REFERENCES Performers(performer_id)
 );
-
-CREATE TABLE Tickets (
-    ticket_id INT PRIMARY KEY AUTO_INCREMENT,
-    event_id INT,
-    seat_id INT,
-    price DECIMAL(10, 2),
-    buyer_name VARCHAR(255),
-    status VARCHAR(50),
-    FOREIGN KEY (event_id) REFERENCES Events(event_id),
-    FOREIGN KEY (seat_id) REFERENCES Seats(seat_id)
-);

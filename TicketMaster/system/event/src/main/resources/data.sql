@@ -41,23 +41,3 @@ INSERT INTO Events (name, description, date, venue_id, performer_id) VALUES
 ('Dave Chappelle Comedy Show', 'A night of comedy with Dave Chappelle.', '2024-09-05', 2, 2),
 ('Lollapalooza Festival', 'Annual music festival with various artists.', '2024-08-01', 5, 3),
 ('NBA Finals Game 7', 'The final game of the NBA season.', '2024-06-15', 4, 4);
-
--- Create Tickets for the Super Bowl
-INSERT INTO Tickets (event_id, seat_id, price, buyer_name, status) VALUES 
-(1, 1, 2500.00, 'John Doe', 'sold'),
-(1, 2, 1500.00, 'Jane Smith', 'sold');
-
--- Create Tickets for the Taylor Swift Concert
-INSERT INTO Tickets (event_id, seat_id, price, buyer_name, status) VALUES 
-(2, 5, 500.00, 'Alex Johnson', 'sold'),
-(2, 6, 300.00, 'Emily Davis', 'reserved');
-
--- Create Tickets for the Dave Chappelle Comedy Show
-INSERT INTO Tickets (event_id, seat_id, price, buyer_name, status) VALUES 
-(3, 3, 200.00, 'Michael Brown', 'sold'),
-(3, 4, 150.00, 'Sarah Wilson', 'available');
-
--- Create Tickets for the NBA Finals Game 7
-INSERT INTO Tickets (event_id, seat_id, price, buyer_name, status) VALUES 
-(5, 7, 1000.00, 'David Clark', 'sold'),
-(5, 8, 750.00, 'Laura White', 'sold');
