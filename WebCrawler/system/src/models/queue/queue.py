@@ -8,3 +8,7 @@ class QueueInterface(ABC):
     @abstractmethod
     def enqueue(self, item):
         pass
+
+    @abstractmethod
+    def size(self):
+        pass

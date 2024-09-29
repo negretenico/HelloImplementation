@@ -6,10 +6,10 @@ class SQSClient:
         self.sqs = boto3.client('sqs', region_name='us-east-1')
         self.queue_url = url
         
-    def read_message(self):
+    def read_messages(self):
         response  = self.sqs.receive_message(
         QueueUrl=self.queue_url,
-        MaxNumberOfMessages=10,  # Can fetch up to 10 messages at a time
+        MaxNumberOfMessages=1,  # Can fetch up to 10 messages at a time
         WaitTimeSeconds=5  # Long-polling to wait for up to 5 seconds for a message
         )
         return response.get('Message',[])
@@ -20,3 +20,10 @@ class SQSClient:
             return "SUCCESS"
         except Exception:
             return "FAILURE"
+
+    def queue_size(self):
+        response = self.sqs.get_queue_attributes(
+    QueueUrl=self.queue_url,
+    AttributeNames=['ApproximateNumberOfMessages']  # Specify the attribute we want
+    )
+        return int(response['Attributes']['ApproximateNumberOfMessages'])

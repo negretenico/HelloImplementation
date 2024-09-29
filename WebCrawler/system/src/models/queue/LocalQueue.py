@@ -6,7 +6,10 @@ class LocalQueue(QueueInterface):
         super().__init__()
         self.queue = queue()
     def dequeue(self):
-        return self.queue.get()
+        return self.queue
 
     def enqueue(self, item):
         return self.queue.put(item)
+
+    def size(self):
+        return self.queue.qsize()
