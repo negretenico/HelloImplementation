@@ -1,12 +1,21 @@
-import express from 'express';
-
+import express from "express";
+import { fetchMockedData } from "./src/util/data_layer.js";
 const app = express();
 const port = 3000;
+const startServer = async () => {
+  // Fetch the mocked data before starting the server
 
-app.get('/views/top', (req, res) => {
-  res.send('Hello, World!');
-});
+  // Handle the route to return top videos
+  app.get("/views/top", async (req, res) => {
+    const data = await fetchMockedData();
+    res.send(data);
+  });
 
-app.listen(port, () => {
-  console.log(`Server running at http://localhost:${port}`);
-});
+  // Start the server
+  app.listen(port, () => {
+    console.log(`Server running at http://localhost:${port}`);
+  });
+};
+
+// Call the function to start the server
+startServer();
