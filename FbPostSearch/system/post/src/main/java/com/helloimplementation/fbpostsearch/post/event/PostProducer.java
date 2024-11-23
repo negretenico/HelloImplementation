@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class PostProducer {
+//    We will use this to post a message to the ingestion svc to handle the high load of post creations if necessary
     private KafkaTemplate<String, String> kafkaTemplate;
 
     ObjectMapper mapper = new ObjectMapper();
