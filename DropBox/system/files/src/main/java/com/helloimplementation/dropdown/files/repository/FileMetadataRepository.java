@@ -8,6 +8,6 @@ import org.springframework.data.repository.query.Param;
 
 public interface FileMetadataRepository extends JpaRepository<FileMetadata, Integer> {
     @Modifying
-    @Query("UPDATE FileMetadata fmd SET fmd.status =:status WHERE fmd.file_id = :fileId")
+    @Query("UPDATE FileMetadata fmd SET fmd.status =:status WHERE fmd.id = :fileId")
     int updateStatus(@Param("fileId") int fileId, @Param("status") String status);
 }
