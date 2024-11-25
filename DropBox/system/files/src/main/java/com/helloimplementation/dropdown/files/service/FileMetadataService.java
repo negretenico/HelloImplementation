@@ -6,6 +6,9 @@ import com.helloimplementation.dropdown.files.model.Result;
 import com.helloimplementation.dropdown.files.repository.FileMetadataRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.Optional;
+
 @Service
 public class FileMetadataService {
     FileMetadataRepository repository;
@@ -22,5 +25,11 @@ public class FileMetadataService {
         }catch (Exception e){
             return Result.fail(String.format("Could not update the status for %d",fileMetadataId));
         }
+    }
+    public List<FileMetadata> getAll(){
+        return repository.findAll();
+    }
+    public Optional<FileMetadata> getById(int id){
+        return repository.findById(id);
     }
 }

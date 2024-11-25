@@ -50,7 +50,7 @@ insert into Users (name) values ('Min');
 insert into Users (name) values ('Hillier');
 
 INSERT INTO FileMetadata (extension, file_size, name, uploadedBy, status, s3URL) VALUES
-('txt', 12345, 'file1.txt', 1, 'active', 'https://example.com/file1.txt'),
+('txt', 12345, 'file1', 1, 'active', 'https://example.com/file1.txt'),
 ('jpg', 54321, 'image1.jpg', 2, 'active', 'https://example.com/image1.jpg'),
 ('pdf', 4321, 'doc1.pdf', 3, 'archived', 'https://example.com/doc1.pdf'),
 ('png', 87654, 'image2.png', 4, 'deleted', 'https://example.com/image2.png'),

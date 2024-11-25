@@ -4,6 +4,7 @@ import com.helloimplementation.dropdown.files.model.FileMetadata;
 import com.helloimplementation.dropdown.files.model.FileUploadStatus;
 import com.helloimplementation.dropdown.files.model.Result;
 import com.helloimplementation.dropdown.files.service.FileMetadataService;
+import com.helloimplementation.dropdown.files.util.FilePathProvider;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Profile;
 import org.slf4j.Logger;
@@ -17,29 +18,29 @@ import software.amazon.awssdk.services.s3.model.PutObjectResponse;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Map;
+import java.util.Objects;
 import java.util.concurrent.CompletableFuture;
 
 @Profile("!local")
 @Service
 public class CloudUploader implements Uploader {
 
-    private static final Logger logger = LoggerFactory.getLogger(CloudUploader.class);
 
     private final S3AsyncClient s3Client;
     private final FileMetadataService fileMetadataService;
 
-    @Value("${s3.bucket.name}")
-    private String bucketName;
+    private final String bucketName;
 
-    public CloudUploader(S3AsyncClient s3Client, FileMetadataService fileMetadataService) {
+    public CloudUploader(S3AsyncClient s3Client, FileMetadataService fileMetadataService,    @Value("${s3.bucket.name}")String bucketName) {
         this.s3Client = s3Client;
         this.fileMetadataService = fileMetadataService;
+        this.bucketName=bucketName;
     }
 
     @Override
     public Result upload(FileMetadata fileMetadata) throws IOException {
         fileMetadataService.updateStatus(fileMetadata.getId(), FileUploadStatus.STARTED);
-        Path path = Path.of(String.join(".",fileMetadata.getName() ,fileMetadata.getExtension()));
+        Path path = Path.of(String.join(".", FilePathProvider.getFilePath(fileMetadata)));
         String fileName = path.toString();
         PutObjectRequest request = PutObjectRequest.builder()
                 .bucket(bucketName)
@@ -51,20 +52,16 @@ public class CloudUploader implements Uploader {
             fileMetadataService.updateStatus(fileMetadata.getId(), FileUploadStatus.INPROGRESS);
             CompletableFuture<PutObjectResponse> future = s3Client.putObject(request, requestBody);
             future.handle((response, throwable) -> {
-                if (throwable != null) {
-                    logger.error("Failed to upload file: {}", throwable.getMessage());
+                if (Objects.nonNull(throwable)) {
                     fileMetadataService.updateStatus(fileMetadata.getId(), FileUploadStatus.FAILED);
                 } else {
-                    logger.info("File uploaded successfully: {}", fileName);
                     fileMetadataService.updateStatus(fileMetadata.getId(), FileUploadStatus.SUCCESS);
                 }
                 return response;
             });
-
             return Result.ok("Upload initiated successfully");
 
         } catch (Exception e) {
-            logger.error("Error initiating file upload: {}", e.getMessage());
             fileMetadataService.updateStatus(fileMetadata.getId(), FileUploadStatus.FAILED);
             return Result.fail("Failed to upload file to S3");
         }

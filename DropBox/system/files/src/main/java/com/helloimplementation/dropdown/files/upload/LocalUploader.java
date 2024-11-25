@@ -4,6 +4,7 @@ import com.helloimplementation.dropdown.files.model.FileMetadata;
 import com.helloimplementation.dropdown.files.model.Result;
 import com.helloimplementation.dropdown.files.repository.UserRepository;
 import com.helloimplementation.dropdown.files.service.FileMetadataService;
+import com.helloimplementation.dropdown.files.util.FilePathProvider;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
@@ -35,7 +36,7 @@ public class LocalUploader implements Uploader {
     }
     @Override
     public Result upload(FileMetadata fileMetadata) throws IOException {
-        String fileName = Path.of("local_uploads",String.join(".", fileMetadata.getName(), fileMetadata.getExtension())).toString();
+        String fileName = Path.of("local_uploads",String.join(".", FilePathProvider.getFilePath(fileMetadata))).toString();
         if(!checkIfLocalDirectoryExists()){
             return Result.fail("We could not create the local directory");
         }

@@ -6,7 +6,7 @@ import lombok.Data;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "fileMetaData")
+@Table(name = "filemetadata")
 @Data
 public class FileMetadata {
     @Id
