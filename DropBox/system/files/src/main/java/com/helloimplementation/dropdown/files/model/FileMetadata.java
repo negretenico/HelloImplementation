@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Data;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Table(name = "filemetadata")
@@ -22,4 +23,6 @@ public class FileMetadata {
     String extension;
     @Column(name="file_size")
     int fileSize;
+    @OneToMany(mappedBy = "fileMetadata")
+    private List<FileShares> fileShares;
 }

@@ -16,8 +16,5 @@ public class User {
     int id;
     @Column(name = "name")
     String name;
-    // Bi-directional relationship (optional, depending on your use case)
-    @OneToMany(mappedBy = "user")
-    private List<FileMetadata> filesUploaded;
 
 }
