@@ -1,0 +1,7 @@
+logging:
+  level:
+    org:
+      springframework:
+        messaging: DEBUG
+        web:
+          socket: DEBUG
