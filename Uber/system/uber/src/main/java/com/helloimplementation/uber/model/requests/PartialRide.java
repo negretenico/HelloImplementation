@@ -1,12 +1,9 @@
 package com.helloimplementation.uber.model.requests;
 
-import lombok.Builder;
 import lombok.Data;
 
 @Data
-@Builder
-public class RideRequest {
-    int riderId;
+public class PartialRide {
     int fareId;
     int pickupId;
     int dropoffId;
