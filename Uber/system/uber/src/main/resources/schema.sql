@@ -3,14 +3,6 @@ CREATE TABLE Rider (
     name TEXT NOT NULL
 );
 
-CREATE TABLE PaymentMethod (
-    payment_id INT AUTO_INCREMENT PRIMARY KEY,
-    rider_id INT,
-    method_type TEXT NOT NULL,
-    details TEXT NOT NULL,
-    FOREIGN KEY (rider_id) REFERENCES Rider(rider_id)
-);
-
 CREATE TABLE Driver (
     driver_id INT AUTO_INCREMENT PRIMARY KEY,
     name TEXT NOT NULL,
