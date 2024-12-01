@@ -13,6 +13,4 @@ public class Rider {
     private int id;
     @Column(name="name", nullable = false)
     String name;
-    @Column(name="availability")
-    boolean availability;
 }

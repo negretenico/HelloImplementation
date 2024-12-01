@@ -36,7 +36,7 @@ public class Ride {
     private Driver driver;
 
     @Column(name = "status", nullable = false)
-    private String status; // Consider using an Enum for status
+    private String status;
 
     @Column(name = "requested_at", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
     private LocalDateTime requestedAt;
