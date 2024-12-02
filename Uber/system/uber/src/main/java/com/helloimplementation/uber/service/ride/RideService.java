@@ -78,12 +78,21 @@ public class RideService {
         }
         return result;
     }
-
     public Result<Ride> getById(int id){
         Optional<Ride> possibleRide = rideRepository.findById(id);
         if(possibleRide.isEmpty()){
             return Result.failure(String.format("We could not find the ride for id %s",id));
         }
         return Result.success(possibleRide.get());
+    }
+
+    public Result<Ride> updateByStatusAndId(int id, RideStatus rideStatus){
+        Result<Ride> rideResult = getById(id);
+        if(rideResult.isFailure()){
+            return Result.failure(String.format("Could not find ride with id=%s",id));
+        }
+        Ride ride = rideResult.getData();
+        ride.setStatus(rideStatus.name());
+        return Result.success(rideRepository.save(ride));
     }
 }
