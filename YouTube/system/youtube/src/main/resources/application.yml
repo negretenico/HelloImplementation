@@ -1,0 +1,5 @@
+cache:
+  videoMetadata:
+    name: VideoMetadata
+  user:
+    name: User
