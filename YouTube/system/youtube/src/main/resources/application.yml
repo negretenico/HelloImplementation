@@ -1,0 +1,13 @@
+cache:
+  videoMetadata:
+    name: VideoMetadata
+  user:
+    name: User
+
+spring:
+  datasource:
+    url: jdbc:ignite:thin://127.0.0.1/
+    driver-class-name: org.apache.ignite.IgniteJdbcThinDriver
+  h2:
+    console:
+      enabled: false
