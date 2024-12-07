@@ -8,16 +8,17 @@ import org.apache.ignite.transactions.TransactionException;
 
 import javax.cache.Cache;
 import java.util.List;
+import java.util.UUID;
 import java.util.function.Consumer;
 
 public class CacheService<T> {
-    private final IgniteCache<Long, T> cache;
+    private final IgniteCache<UUID, T> cache;
 
-    public CacheService(IgniteCache<Long, T> cache) {
+    public CacheService(IgniteCache<UUID, T> cache) {
         this.cache = cache;
     }
 
-    public Result<T> save(Long id, T data) {
+    public Result<T> save(UUID id, T data) {
         try {
             cache.put(id, data);
             return Result.success(data);
@@ -34,7 +35,7 @@ public class CacheService<T> {
         }
     }
 
-    public Result<T> getItem(Long id) {
+    public Result<T> getItem(UUID id) {
         try {
             return Result.success(cache.get(id));
         } catch (TransactionException e) {
@@ -42,7 +43,7 @@ public class CacheService<T> {
         }
     }
 
-    public Result<T> patchEntry(Long id, Consumer<T> patcher) {
+    public Result<T> patchEntry(UUID id, Consumer<T> patcher) {
         Result<T> getItemResult = getItem(id);
         if (getItemResult.isFailure()) {
             return Result.failure(String.format("Could not find entry with id=%s, with original msg=%s", id, getItemResult.getErrMsg()));

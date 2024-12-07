@@ -12,6 +12,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import java.util.UUID;
+
 @Configuration
 public class IgniteConfig {
     @Bean
@@ -22,8 +24,8 @@ public class IgniteConfig {
         cfg.setPeerClassLoadingEnabled(true);
 
         // Cache configuration for key-value storage
-        CacheConfiguration<Long, VideoMetadata> videoMetadataCacheConfig = createCacheConfig(videoMetadata);
-        CacheConfiguration<Long, User> userCacheConfig = createCacheConfig(user);
+        CacheConfiguration<UUID, VideoMetadata> videoMetadataCacheConfig = createCacheConfig(videoMetadata);
+        CacheConfiguration<UUID, User> userCacheConfig = createCacheConfig(user);
         cfg.setCacheConfiguration(videoMetadataCacheConfig, userCacheConfig);
 
         // Start Ignite node in embedded mode
@@ -31,8 +33,8 @@ public class IgniteConfig {
     }
 
 
-    private <T> CacheConfiguration<Long, T> createCacheConfig(String cacheName) {
-        CacheConfiguration<Long, T> cacheConfiguration = new CacheConfiguration<>(cacheName);
+    private <T> CacheConfiguration<UUID, T> createCacheConfig(String cacheName) {
+        CacheConfiguration<UUID, T> cacheConfiguration = new CacheConfiguration<>(cacheName);
         cacheConfiguration.setCacheMode(CacheMode.PARTITIONED); // Adjust as needed
         cacheConfiguration.setAtomicityMode(CacheAtomicityMode.ATOMIC);
         return cacheConfiguration;
