@@ -9,6 +9,8 @@ class Post(db.Model):
     date_posted = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     content = db.Column(db.Text, nullable=False)
     author = db.Column(db.Text, nullable=False)
+    user_id = db.Column(db.Integer, nullable=False)
+    feed_id = db.Column(db.Integer, db.ForeignKey('feed.id'), nullable=True)
 
     def get_id(self):
         return self.id
